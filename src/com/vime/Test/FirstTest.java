@@ -8,6 +8,8 @@ import java.util.Set;
 public class FirstTest {
 
 
+    /**************************************************1****************************************************************/
+
     /*
     1. 两数之和
 给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
@@ -46,7 +48,7 @@ public class FirstTest {
     }
 
 
-    /******************************************************************************************************************/
+    /**************************************************2****************************************************************/
 
 
 
@@ -105,7 +107,7 @@ public class FirstTest {
     }
 
 
-    /******************************************************************************************************************/
+    /***************************************************3***************************************************************/
 
 
 
@@ -149,7 +151,7 @@ public class FirstTest {
                 //System.out.print("break at index:" + i + " before start:" + startIndex);
 
                 i = startIndex + 1;
-                startIndex ++;
+                startIndex++;
                 //System.out.println(" new start:" + startIndex);
 
             } else {
@@ -161,4 +163,122 @@ public class FirstTest {
         }
         return ret;
     }
+
+
+    /*********************************************4*********************************************************************/
+
+    /**
+     * 4. 寻找两个正序数组的中位数
+     * 给定两个大小为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。
+     * <p>
+     * 请你找出这两个正序数组的中位数，并且要求算法的时间复杂度为 O(log(m + n))。
+     * <p>
+     * 你可以假设 nums1 和 nums2 不会同时为空。
+     * <p>
+     * <p>
+     * <p>
+     * 示例 1:
+     * <p>
+     * nums1 = [1, 3]
+     * nums2 = [2]
+     * <p>
+     * 则中位数是 2.0
+     * 示例 2:
+     * <p>
+     * nums1 = [1, 2]
+     * nums2 = [3, 4]
+     * <p>
+     * 则中位数是 (2 + 3)/2 = 2.5
+     * <p>
+     * TODO 每一次找下下标为 k - k/2,  每次排除k/2个元素
+     */
+    @Test
+    public void test4() {
+    }
+    /*public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+
+    }*/
+
+
+    /****************************************************5**************************************************************/
+
+    /**
+     * 5. 最长回文子串
+     * 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
+     * <p>
+     * 示例 1：
+     * <p>
+     * 输入: "babad"
+     * 输出: "bab"
+     * 注意: "aba" 也是一个有效答案。
+     * 示例 2：
+     * <p>
+     * 输入: "cbbd"
+     * 输出: "bb"
+     */
+
+
+    @Test
+    public void test5() {
+        System.out.println(longestPalindrome("babadada"));
+    }
+
+    public String longestPalindrome(String s) {
+        StringBuffer s_builder = new StringBuffer(s);
+        if(s.equals(s_builder.reverse().toString())) return  s;
+        char[] array = s.toCharArray();
+        int length = array.length;
+
+        int retLength = 0;
+        String retStr = String.valueOf(array[0]);
+
+        for (int i = 0; i < length; i++) {
+            int j = length - 1;
+            for (; j > i; j--) {
+                if (array[i] == array[j]) {
+                    String newStr = s.substring(i, j + 1);
+                    StringBuffer sb = new StringBuffer(newStr);
+                    if (newStr.equals(sb.reverse().toString())) {
+                        if (newStr.length() > retLength) {
+                            retLength = newStr.length();
+                            retStr = newStr;
+                            break;
+                        }
+                    }
+                }
+            }
+            //if(retLength == j + 1 - i) break;
+        }
+        return retStr;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
