@@ -2,6 +2,9 @@ package com.vime.Test;
 
 import org.junit.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class FirstTest {
 
 
@@ -43,8 +46,6 @@ public class FirstTest {
     }
 
 
-
-
     /******************************************************************************************************************/
 
 
@@ -63,7 +64,6 @@ public class FirstTest {
 输出：7 -> 0 -> 8
 原因：342 + 465 = 807
     * */
-
     @Test
     public void test2() {
         ListNode n1 = new ListNode(9);
@@ -89,19 +89,75 @@ public class FirstTest {
         ListNode curNode = ret;
         int UpValue = (l1.val + l2.val) / 10;
         ListNode zeroNode = new ListNode(0);
-        while (l1.next != null || l2.next != null)
-        {
-            l1 = l1.next == null ? zeroNode: l1.next;
+        while (l1.next != null || l2.next != null) {
+            l1 = l1.next == null ? zeroNode : l1.next;
             l2 = l2.next == null ? zeroNode : l2.next;
-            ListNode nextNode = new ListNode((l1.val + l2.val+ UpValue) % 10);
+            ListNode nextNode = new ListNode((l1.val + l2.val + UpValue) % 10);
             curNode.next = nextNode;
             curNode = nextNode;
             UpValue = (l1.val + l2.val + UpValue) / 10;
         }
-        if (UpValue > 0)
-        {
+        if (UpValue > 0) {
             ListNode nextNode = new ListNode(UpValue);
             curNode.next = nextNode;
+        }
+        return ret;
+    }
+
+
+    /******************************************************************************************************************/
+
+
+
+    /*
+3. 无重复字符的最长子串
+给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+
+示例 1:
+
+输入: "abcabcbb"
+输出: 3
+解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+示例 2:
+
+输入: "bbbbb"
+输出: 1
+解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
+示例 3:
+
+输入: "pwwkew"
+输出: 3
+解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
+     请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
+    * */
+    @Test
+    public void test3() {
+        System.out.println(lengthOfLongestSubstring("tmmzuxt"));//dvdfd
+    }
+
+    public int lengthOfLongestSubstring(String s) {
+        char[] array = s.toCharArray();
+        int ret = 0;
+        Set<Character> retSet = new HashSet<>();
+        int curmax = 0;
+        int startIndex = 0;
+        for (int i = 0; i < array.length; ) {
+            if (retSet.contains(array[i])) {
+                retSet.clear();
+                curmax = 0;
+
+                //System.out.print("break at index:" + i + " before start:" + startIndex);
+
+                i = startIndex + 1;
+                startIndex ++;
+                //System.out.println(" new start:" + startIndex);
+
+            } else {
+                retSet.add(array[i]);
+                curmax++;
+                i++;
+            }
+            ret = curmax > ret ? curmax : ret;
         }
         return ret;
     }
