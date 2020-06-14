@@ -225,7 +225,7 @@ public class FirstTest {
 
     public String longestPalindrome(String s) {
         StringBuffer s_builder = new StringBuffer(s);
-        if(s.equals(s_builder.reverse().toString())) return  s;
+        if (s.equals(s_builder.reverse().toString())) return s;
         char[] array = s.toCharArray();
         int length = array.length;
 
@@ -250,6 +250,64 @@ public class FirstTest {
             //if(retLength == j + 1 - i) break;
         }
         return retStr;
+    }
+
+    /****************************************************6**************************************************************/
+
+    /**
+     * 6. Z 字形变换
+     * 将一个给定字符串根据给定的行数，以从上往下、从左到右进行 Z 字形排列。
+     * <p>
+     * 比如输入字符串为 "LEETCODEISHIRING" 行数为 3 时，排列如下：
+     * <p>
+     * L   C   I   R
+     * E T O E S I I G
+     * E   D   H   N
+     * 之后，你的输出需要从左往右逐行读取，产生出一个新的字符串，比如："LCIRETOESIIGEDHN"。
+     * <p>
+     * 请你实现这个将字符串进行指定行数变换的函数：
+     * <p>
+     * string convert(string s, int numRows);
+     * 示例 1:
+     * <p>
+     * 输入: s = "LEETCODEISHIRING", numRows = 3
+     * 输出: "LCIRETOESIIGEDHN"
+     * 示例 2:
+     * <p>
+     * 输入: s = "LEETCODEISHIRING", numRows = 4
+     * 输出: "LDREOEIIECIHNTSG"
+     * 解释:
+     * <p>
+     * L     D     R
+     * E   O E   I I
+     * E C   I H   N
+     * T     S     G
+     */
+    @Test
+    public void test6() {
+        System.out.println(convert("123456789123456789", 2));
+    }
+
+    public String convert(String s, int numRows) {
+        StringBuffer[] ret = new StringBuffer[numRows];
+        for (int i = 0; i < numRows; i++) {
+            ret[i] = new StringBuffer();
+        }
+        if (numRows <= 1) return s;
+        char[] array = s.toCharArray();
+        int appendIndex = 0;
+        boolean isDown = false;
+        for (int i = 0; i < array.length; i++) {
+            ret[appendIndex].append(array[i]);
+            if (appendIndex == 0 || appendIndex == numRows - 1) isDown = !isDown;
+            appendIndex += isDown ? 1 : -1;
+        }
+        StringBuffer r = new StringBuffer();
+        for (int i = 0; i < numRows; i++) {
+            r.append(ret[i]);
+            if (i < numRows - 1) r.append('\n');
+        }
+        return r.toString();
     }
 }
 
