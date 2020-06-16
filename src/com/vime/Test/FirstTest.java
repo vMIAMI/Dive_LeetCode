@@ -309,6 +309,52 @@ public class FirstTest {
         }
         return r.toString();
     }
+
+
+    /****************************************************7**************************************************************/
+
+    /***
+     * 7. 整数反转
+     * 给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。
+     *
+     * 示例 1:
+     *
+     * 输入: 123
+     * 输出: 321
+     *  示例 2:
+     *
+     * 输入: -123
+     * 输出: -321
+     * 示例 3:
+     *
+     * 输入: 120
+     * 输出: 21
+     */
+
+    @Test
+    public void test7() {
+        System.out.println(reverse(-2147483412));
+    }
+
+    public int reverse(int x) {
+        boolean isMinus = false;
+        long x0 = x;
+        if (x0 < 0) {
+            isMinus = true;
+            x0 -= 2 * x0;
+        }
+        //if(x0 > Integer.MAX_VALUE || x0 < Integer.MIN_VALUE) return  0;
+
+        long ret = 0;
+        while (x0 >= 10) {
+            ret = ret * 10 + (x0 % 10);
+            x0 /= 10;
+        }
+        ret = ret * 10 + (x0 % 10);
+        if (isMinus) ret -= 2 * ret;
+        if(ret > Integer.MAX_VALUE || ret < Integer.MIN_VALUE) return  0;
+        return (int)ret;
+    }
 }
 
 
