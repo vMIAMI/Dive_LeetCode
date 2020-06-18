@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FirstTest {
 
@@ -404,7 +406,7 @@ public class FirstTest {
      * 输出: -2147483648
      * 解释: 数字 "-91283472332" 超过 32 位有符号整数范围。
      * 因此返回 INT_MIN (−231) 。
-     *
+     * <p>
      * TODO 敏感词过滤的算法原理之DFA算法
      */
 
@@ -420,32 +422,136 @@ public class FirstTest {
 
     public int myAtoi(String str) {
         char[] array = str.trim().toCharArray();
-        if(array.length == 0) return 0;
+        if (array.length == 0) return 0;
         boolean isStart = false;
         boolean isMinus = array[0] == '-';
         long ret = 0;
         for (int i = 0; i < array.length; i++) {
             int n = GetCharIntValueByZero(array[i]);
             if (!isStart) {
-                if(array[i] == '-'  || array[i] == '+') {isStart = true; continue;}
+                if (array[i] == '-' || array[i] == '+') {
+                    isStart = true;
+                    continue;
+                }
                 if (n >= 0 && n <= 9) isStart = true;
                 else return 0;
             }
             if (isStart) {
-                if(n < 0 || n > 9) break;
+                if (n < 0 || n > 9) break;
                 ret = ret * 10 + n;
                 if (ret > Integer.MAX_VALUE) break;
             }
-            if(!isStart && array[i] == '+') isStart = true;
+            if (!isStart && array[i] == '+') isStart = true;
         }
         ret -= isMinus ? 2 * ret : 0;
-        if(ret <= Integer.MIN_VALUE) return  Integer.MIN_VALUE;
-        else if(ret >= Integer.MAX_VALUE) return Integer.MAX_VALUE;
-        return (int)ret;
+        if (ret <= Integer.MIN_VALUE) return Integer.MIN_VALUE;
+        else if (ret >= Integer.MAX_VALUE) return Integer.MAX_VALUE;
+        return (int) ret;
     }
 
     public int GetCharIntValueByZero(char c) {
         return (int) c - 48;
+    }
+
+    /****************************************************9**************************************************************/
+    /**
+     * 9. 回文数
+     * 判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
+     * <p>
+     * 示例 1:
+     * <p>
+     * 输入: 121
+     * 输出: true
+     * 示例 2:
+     * <p>
+     * 输入: -121
+     * 输出: false
+     * 解释: 从左向右读, 为 -121 。 从右向左读, 为 121- 。因此它不是一个回文数。
+     * 示例 3:
+     * <p>
+     * 输入: 10
+     * 输出: false
+     * 解释: 从右向左读, 为 01 。因此它不是一个回文数。
+     * TODO 只反转一半即可
+     */
+    @Test
+    public void test9() {
+        System.out.println(isPalindrome(10));
+    }
+
+    public boolean isPalindrome(int x) {
+        if (x < 0) return false;
+        if (x < 10) return true;
+        int x0 = x;
+        int revase = 0;
+        while (x >= 10) {
+            revase = revase * 10 + x % 10;
+            x /= 10;
+        }
+        revase = revase * 10 + x % 10;
+        return revase == x0;
+    }
+
+
+    /****************************************************10**************************************************************/
+
+    /**
+     * 10. 正则表达式匹配
+     * 给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '*' 的正则表达式匹配。
+     * <p>
+     * '.' 匹配任意单个字符
+     * '*' 匹配零个或多个前面的那一个元素
+     * 所谓匹配，是要涵盖 整个 字符串 s的，而不是部分字符串。
+     * <p>
+     * 说明:
+     * <p>
+     * s 可能为空，且只包含从 a-z 的小写字母。
+     * p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
+     * 示例 1:
+     * <p>
+     * 输入:
+     * s = "aa"
+     * p = "a"
+     * 输出: false
+     * 解释: "a" 无法匹配 "aa" 整个字符串。
+     * 示例 2:
+     * <p>
+     * 输入:
+     * s = "aa"
+     * p = "a*"
+     * 输出: true
+     * 解释: 因为 '*' 代表可以匹配零个或多个前面的那一个元素, 在这里前面的元素就是 'a'。因此，字符串 "aa" 可被视为 'a' 重复了一次。
+     * 示例 3:
+     * <p>
+     * 输入:
+     * s = "ab"
+     * p = ".*"
+     * 输出: true
+     * 解释: ".*" 表示可匹配零个或多个（'*'）任意字符（'.'）。
+     * 示例 4:
+     * <p>
+     * 输入:
+     * s = "aab"
+     * p = "c*a*b"
+     * 输出: true
+     * 解释: 因为 '*' 表示零个或多个，这里 'c' 为 0 个, 'a' 被重复一次。因此可以匹配字符串 "aab"。
+     * 示例 5:
+     * <p>
+     * 输入:
+     * s = "mississippi"
+     * p = "mis*is*p*."
+     * 输出: false
+     */
+    @Test
+    public void test10() {
+
+    }
+
+    //动态规划。还不会... 嘤嘤嘤
+    public boolean isMatch(String s, String p) {
+        Pattern.matches("from", "to");
+
+        return false;
     }
 }
 
