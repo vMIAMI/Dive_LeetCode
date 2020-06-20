@@ -2,8 +2,7 @@ package com.vime.Test;
 
 import org.junit.Test;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -552,6 +551,70 @@ public class FirstTest {
         Pattern.matches("from", "to");
 
         return false;
+    }
+
+    /****************************************************15**************************************************************/
+    /**
+     * 15. 三数之和
+     * 给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有满足条件且不重复的三元组。
+     * <p>
+     * 注意：答案中不可以包含重复的三元组。
+     * <p>
+     * <p>
+     * <p>
+     * 示例：
+     * <p>
+     * 给定数组 nums = [-1, 0, 1, 2, -1, -4]，
+     * <p>
+     * 满足要求的三元组集合为：
+     * [
+     * [-1, 0, 1],
+     * [-1, -1, 2]
+     * ]
+     */
+    //TODO 先排序啊，卧槽 怎么没想到
+    @Test
+    public void test15() {
+        int[] nums = {-1, 0, 1, 2, -1, -4};
+        System.out.println(threeSum(nums));
+    }
+
+
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> ret = new ArrayList<>();
+        Map<Integer, List<Integer>> numsmap = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            List<Integer> l = numsmap.get(nums[i]);
+            if (l == null) {
+                l = new ArrayList<>();
+                l.add(i);
+                numsmap.put(nums[i], l);
+            } else {
+                l.add(i);
+            }
+        }
+        List<Integer> ret_need = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                int need = -(nums[i] + nums[j]);
+                if (ret_need.contains(need)) continue;
+                List<Integer> l = numsmap.get(need);
+                if (l != null) {
+                    int v = 0;
+                    v += l.contains(i) ? 1 : 0;
+                    v += l.contains(j) ? 1 : 0;
+                    if (l.size() > v) {
+                        List<Integer> list = new ArrayList<>();
+                        list.add(nums[i]);
+                        list.add(nums[j]);
+                        list.add(need);
+                        ret.add(list);
+                        ret_need.add(need);
+                    }
+                }
+            }
+        }
+        return ret;
     }
 }
 
